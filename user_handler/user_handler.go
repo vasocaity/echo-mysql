@@ -5,7 +5,7 @@ import (
 
 	"github.com/labstack/echo"
 	r "github.com/vasocaity/echo-mysql/repository"
-	s "github.com/vasocaity/echo-mysql/services"
+	s "github.com/vasocaity/echo-mysql/usecase"
 )
 
 type handler struct {
