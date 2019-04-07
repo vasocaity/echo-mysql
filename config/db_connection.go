@@ -38,7 +38,7 @@ func ConnectDB() {
 }
 
 /*Create mysql connection*/
-func CreateCon() {
+func CreateCon() (*sql.DB, error) {
 
 	db, err := sql.Open("mysql", "root:my-secret-pw@tcp(127.0.0.1:3306)/test-plantd?parseTime=true")
 	if err != nil {
@@ -52,4 +52,5 @@ func CreateCon() {
 		fmt.Println("db is not connected")
 		fmt.Println(err.Error())
 	}
+	return db, err
 }

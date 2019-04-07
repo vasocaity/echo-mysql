@@ -1,34 +1,26 @@
 package main
 
 import (
-	"database/sql"
-	"fmt"
+	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	db "github.com/vasocaity/echo-mysql/config"
 	repo "github.com/vasocaity/echo-mysql/repository"
 	user_handler "github.com/vasocaity/echo-mysql/user_handler"
 )
 
-var db *sql.DB
+// var db *sql.DB
 
 func main() {
 	// connect db
-	db, err := sql.Open("mysql", "root:my-secret-pw@tcp(127.0.0.1:3306)/test-plantd?parseTime=true")
+	db, err := db.CreateCon()
 	if err != nil {
-		fmt.Println(err.Error())
-	} else {
-		fmt.Println("db is connected")
+		log.Fatal(err.Error())
 	}
-	err = db.Ping()
-	fmt.Println(err)
-	if err != nil {
-		fmt.Println("db is not connected")
-		fmt.Println(err.Error())
-	}
-
 	defer db.Close()
+
 	// create handler
 	e := echo.New()
 	e.Use(middleware.Logger())
