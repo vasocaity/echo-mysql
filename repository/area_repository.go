@@ -17,7 +17,7 @@ func NewRepository(db *sql.DB) Repository {
 	return &repository{db}
 }
 
-func (r *repository) GetAreas() models.Areas {
+func (r *repository) GetAreas() *models.Areas {
 	// con := db.ConnectDB()
 	// Execute the query
 	var area models.Area
@@ -28,7 +28,7 @@ func (r *repository) GetAreas() models.Areas {
 	result := models.Areas{}
 	area = models.Area{}
 	result.Areas = append(result.Areas, area)
-	return result
+	return &result
 }
 
 func (r *repository) GetArea() (*models.Areas, error) {

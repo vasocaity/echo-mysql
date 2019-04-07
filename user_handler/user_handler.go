@@ -5,14 +5,16 @@ import (
 
 	"github.com/labstack/echo"
 	r "github.com/vasocaity/echo-mysql/repository"
+	s "github.com/vasocaity/echo-mysql/services"
 )
 
 type handler struct {
-	repo r.Repository
+	service s.Service
 }
 
 func NewHandler(repo r.Repository) Handler {
-	return &handler{repo}
+	service := s.NewService(repo)
+	return &handler{service}
 }
 
 func NewHttpHandler(g *echo.Group) {
@@ -21,8 +23,8 @@ func NewHttpHandler(g *echo.Group) {
 	})
 }
 
-func (h *handler) GetValue(c echo.Context) error {
-	list, err := h.repo.GetArea()
+func (h *handler) GetAreas(c echo.Context) error {
+	list, err := h.service.GetArea()
 	if err != nil {
 		return c.JSON(http.StatusNoContent, nil)
 	}
@@ -30,7 +32,7 @@ func (h *handler) GetValue(c echo.Context) error {
 }
 func (h *handler) GetAreaByID(c echo.Context) error {
 	id := c.Param("id")
-	list, err := h.repo.GetAreaByID(id)
+	list, err := h.service.GetAreaByID(id)
 	if err != nil {
 		return c.JSON(http.StatusNoContent, nil)
 	}

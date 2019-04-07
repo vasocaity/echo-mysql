@@ -30,7 +30,7 @@ func main() {
 	repo := repo.NewRepository(db)
 	u := user_handler.NewHandler(repo)
 	g := e.Group("/user")
-	g.GET("", u.GetValue)
+	g.GET("", u.GetAreas)
 	g.GET("/:id", u.GetAreaByID)
 	user_handler.NewHttpHandler(g)
 
